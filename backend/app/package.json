@@ -1,0 +1,14 @@
+{
+  "name": "easykube-backend",
+  "version": "1.0.0",
+  "author": "Adam Sandor <adam.sandor@container-solutions.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "fs": "latest",
+    "request": "latest"
+  }
+}

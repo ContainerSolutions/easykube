@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: words-db
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 10%
+  template:
+    metadata:
+      labels:
+        app: words-db
+    spec:
+      containers:
+        - name: words-db
+          image: container-solutions/easykube-db:VERSION
+          resources:
+            requests:
+              cpu: 100m
+              memory: 150Mi
+            limits:
+              cpu: 1
+              memory: 400Mi
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 27017
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 27017
+            periodSeconds: 3
+            timeoutSeconds: 30
+          ports:
+            - containerPort: 27017
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: words-db
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  selector:
+    app: words-db
+  type: NodePort
