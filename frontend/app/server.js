@@ -14,7 +14,7 @@ function hostname() {
 // App
 const app = express();
 app.get('/', function (req, res) {
-    request(process.env.BACKEND_URL + "/randomword", function(error, backendResp, backendRespBody) {
+    request("http://backend/randomword", function(error, backendResp, backendRespBody) {
         if (!error) {
             res.send("Backend says: " + backendRespBody + hostname());
         } else {

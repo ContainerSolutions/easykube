@@ -34,8 +34,5 @@ spec:
             port: 8080
           periodSeconds: 3
           timeoutSeconds: 30
-        env:
-          - name: BACKEND_URL
-            value: http://backend
         ports:
         - containerPort: 8080
