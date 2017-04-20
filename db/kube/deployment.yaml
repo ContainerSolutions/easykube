@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: words-db
-          image: container-solutions/easykube-db:VERSION
+          image: containersol/easykube-db:VERSION
           resources:
             requests:
               cpu: 100m
