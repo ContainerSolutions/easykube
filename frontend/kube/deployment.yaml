@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: containersol/easykube-frontend:VERSION
+        image: adamsandor83/easykube-frontend:VERSION
         resources:
           requests:
             cpu: 100m

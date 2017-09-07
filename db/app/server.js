@@ -2,6 +2,7 @@
 
 const express = require('express');
 const fs = require('fs');
+const bodyParser = require('body-parser')
 
 // Constants
 const PORT = 27017;
@@ -9,17 +10,19 @@ const PORT = 27017;
 
 // App
 const app = express();
+
+app.use(bodyParser.text());
+
 app.get('/words', function (req, res) {
-    if (req.query.user !== 'easykube-backend') {
-        res.status(401).send('Unauthorised client');
-        return;
-    }
-    if (req.query.pwd !== 'easykubepwd') {
-        res.status(401).send('Invalid password');
-        return;
-    }
     var words = fs.readFileSync('/words/words.list').toString().split("\n");
     res.json(words);
+});
+
+app.put('/words', function (req, res) {
+    var words = fs.readFileSync('/words/words.list').toString().split("\n");
+    console.log('Saving word ' + req.body)
+    words.push(req.body);
+    res.send('Saved word ' + JSON.stringify(req.body))
 });
 
 app.get('/health', function (req, res) {

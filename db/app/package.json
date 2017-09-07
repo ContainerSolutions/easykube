@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "express": "^4.13.3",
-    "fs": "latest"
+    "fs": "latest",
+    "body-parser": "latest"
   }
 }
