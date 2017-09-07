@@ -36,35 +36,23 @@ spec:
             timeoutSeconds: 30
           ports:
             - containerPort: 27017
-          volumeMounts:
-              - name: word-list
-                mountPath: /words
-      volumes:
-        - name: word-list
-          persistentVolumeClaim:
-            claimName: words-db-claim
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: words-db
-spec:
-  ports:
-  - port: 27017
-    targetPort: 27017
-  selector:
-    app: words-db
-  type: NodePort
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: words-db-claim
-  annotations:
-    volume.beta.kubernetes.io/storage-class: "standard"
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
+#          volumeMounts:
+#              - name: word-list
+#                mountPath: /words
+#      volumes:
+#        - name: word-list
+#          persistentVolumeClaim:
+#            claimName: words-db-claim
+#---
+#kind: PersistentVolumeClaim
+#apiVersion: v1
+#metadata:
+#  name: words-db-claim
+#  annotations:
+#    volume.beta.kubernetes.io/storage-class: "standard"
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 100Mi
