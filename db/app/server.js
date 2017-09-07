@@ -22,7 +22,8 @@ app.put('/words', function (req, res) {
     var words = fs.readFileSync('/words/words.list').toString().split("\n");
     console.log('Saving word ' + req.body)
     words.push(req.body);
-    res.send('Saved word ' + JSON.stringify(req.body))
+    fs.writeFileSync('/words/words.list', words.join('\n'))
+    res.send('Saved word ' + req.body)
 });
 
 app.get('/health', function (req, res) {
