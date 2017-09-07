@@ -14,11 +14,17 @@ const app = express();
 app.use(bodyParser.text());
 
 app.get('/words', function (req, res) {
+    if (!fs.existsSync('/words/words.list')) {
+        fs.writeFileSync('/words/words.list', "")
+    }
     var words = fs.readFileSync('/words/words.list').toString().split("\n");
     res.json(words);
 });
 
 app.put('/words', function (req, res) {
+    if (!fs.existsSync('/words/words.list')) {
+        fs.writeFileSync('/words/words.list', "")
+    }
     var words = fs.readFileSync('/words/words.list').toString().split("\n");
     console.log('Saving word ' + req.body)
     words.push(req.body);

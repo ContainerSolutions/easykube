@@ -4,8 +4,7 @@ metadata:
   name: words-db
 spec:
   strategy:
-    rollingUpdate:
-      maxUnavailable: 10%
+    type: Recreate
   template:
     metadata:
       labels:
@@ -36,23 +35,23 @@ spec:
             timeoutSeconds: 30
           ports:
             - containerPort: 27017
-#          volumeMounts:
-#              - name: word-list
-#                mountPath: /words
-#      volumes:
-#        - name: word-list
-#          persistentVolumeClaim:
-#            claimName: words-db-claim
-#---
-#kind: PersistentVolumeClaim
-#apiVersion: v1
-#metadata:
-#  name: words-db-claim
-#  annotations:
-#    volume.beta.kubernetes.io/storage-class: "standard"
-#spec:
-#  accessModes:
-#    - ReadWriteOnce
-#  resources:
-#    requests:
-#      storage: 100Mi
+          volumeMounts:
+              - name: word-list
+                mountPath: /words
+      volumes:
+        - name: word-list
+          persistentVolumeClaim:
+            claimName: words-db-claim
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: words-db-claim
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "standard"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
